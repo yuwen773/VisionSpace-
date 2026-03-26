@@ -30,6 +30,9 @@ public class StorageConfigController {
 
     private final StorageConfigService storageConfigService;
 
+    @javax.annotation.Resource
+    private com.yuwen.visionspace.init.FileStorageInit fileStorageInit;
+
     /**
      * 获取存储配置列表
      */
@@ -97,5 +100,15 @@ public class StorageConfigController {
         ThrowUtils.throwIf(request == null, ErrorCode.PARAMS_ERROR);
         boolean result = storageConfigService.setDefaultPlatform(request.getId());
         return ResultUtils.success(result);
+    }
+
+    /**
+     * 刷新存储平台缓存（重新加载配置到 x-file-storage）
+     */
+    @PostMapping("/refresh")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Boolean> refreshStorageConfig() {
+        fileStorageInit.refresh();
+        return ResultUtils.success(true);
     }
 }
