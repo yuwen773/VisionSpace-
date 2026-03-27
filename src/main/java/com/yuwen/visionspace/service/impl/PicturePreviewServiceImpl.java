@@ -5,7 +5,6 @@ import com.yuwen.visionspace.mapper.PictureMapper;
 import com.yuwen.visionspace.model.entity.Picture;
 import com.yuwen.visionspace.service.PicturePreviewService;
 import com.yuwen.visionspace.utils.PicturePreviewUtils;
-import com.yuwen.visionspace.utils.PictureVariantPathUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.dromara.x.file.storage.core.FileInfo;
