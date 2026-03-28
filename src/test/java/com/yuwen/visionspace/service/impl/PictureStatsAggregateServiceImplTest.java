@@ -59,7 +59,7 @@ class PictureStatsAggregateServiceImplTest {
         stats.setCollectCount(2L);
         stats.setDownloadCount(1L);
         stats.setShareCount(1L);
-        when(actionMapper.aggregateByPictureId()).thenReturn(Arrays.asList(stats));
+        when(actionMapper.aggregateByPictureId(anyList())).thenReturn(Arrays.asList(stats));
 
         Picture picture = new Picture();
         picture.setId(pictureId);
@@ -97,7 +97,7 @@ class PictureStatsAggregateServiceImplTest {
         stats.setPictureId(pictureId);
         stats.setImpressionCount(0L);
         stats.setClickCount(0L);
-        when(actionMapper.aggregateByPictureId()).thenReturn(Arrays.asList(stats));
+        when(actionMapper.aggregateByPictureId(anyList())).thenReturn(Arrays.asList(stats));
 
         Picture picture = new Picture();
         picture.setId(pictureId);

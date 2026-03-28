@@ -19,9 +19,11 @@ public interface UserPictureActionMapper extends BaseMapper<UserPictureAction> {
 
     /**
      * 按图片ID分组统计各行为数量
+     * @param pictureIds 图片ID列表
      * @return 聚合统计列表
      */
-    @Select("SELECT " +
+    @Select("<script>" +
+            "SELECT " +
             "picture_id AS pictureId, " +
             "SUM(CASE WHEN action_type = 0 THEN action_value ELSE 0 END) AS impressionCount, " +
             "SUM(CASE WHEN action_type = 1 THEN action_value ELSE 0 END) AS clickCount, " +
@@ -31,8 +33,13 @@ public interface UserPictureActionMapper extends BaseMapper<UserPictureAction> {
             "SUM(CASE WHEN action_type = 5 THEN action_value ELSE 0 END) AS downloadCount, " +
             "SUM(CASE WHEN action_type = 6 THEN action_value ELSE 0 END) AS shareCount " +
             "FROM user_picture_action " +
-            "GROUP BY picture_id")
-    List<PictureActionStatsDTO> aggregateByPictureId();
+            "WHERE picture_id IN " +
+            "<foreach item='item' collection='list' open='(' separator=',' close=')'>" +
+            "#{item}" +
+            "</foreach>" +
+            "GROUP BY picture_id" +
+            "</script>")
+    List<PictureActionStatsDTO> aggregateByPictureId(List<Long> pictureIds);
 
     /**
      * 查询有行为记录的图片ID列表

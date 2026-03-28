@@ -63,8 +63,8 @@ public class PictureStatsAggregateServiceImpl implements PictureStatsAggregateSe
      * 处理一批图片ID
      */
     private int processBatch(List<Long> pictureIds) {
-        // 查询这批图片的聚合数据
-        List<PictureActionStatsDTO> statsList = actionMapper.aggregateByPictureId();
+        // 查询这批图片的聚合数据（只查当前批次）
+        List<PictureActionStatsDTO> statsList = actionMapper.aggregateByPictureId(pictureIds);
 
         if (statsList == null || statsList.isEmpty()) {
             return 0;
